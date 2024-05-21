@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Manajemen Kegiatan Olahraga</title>
+<link rel="stylesheet" href="styles.css"> <!-- Memuat file CSS terpisah -->
+</head>
+<body>
+<div id="app">
+    <!-- Konten Vue.js akan ditampilkan di sini -->
+    <div class="container">
+        <h1>Manajemen Kegiatan Olahraga</h1>
+        
+        <!-- Bagian Post -->
+        <div class="section">
+            <h2>Post</h2>
+            <div class="form-group">
+                <label for="post">Tambahkan Post Baru:</label>
+                <input type="text" v-model="newPost" placeholder="Masukkan post baru...">
+                <button @click="addPost">Tambah</button>
+            </div>
+            <ul class="activity-list">
+                <li v-for="(post, index) in posts" :key="index">
+                    <span>{{ post }}</span>
+                    <div class="action-btns">
+                        <button @click="deletePost(index)">Hapus</button>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        
+        <!-- Bagian Todos -->
+        <div class="section">
+            <h2>Todos</h2>
+            <div class="form-group">
+                <label for="activity">Tambahkan Kegiatan Baru:</label>
+                <input type="text" v-model="newActivity" placeholder="Masukkan kegiatan olahraga...">
+                <button @click="addActivity">Tambah</button>
+            </div>
+            <ul class="activity-list">
+                <li v-for="(activity, index) in activities" :key="index" :class="{ completed: activity.completed }">
+                    <span>{{ activity.text }}</span>
+                    <div class="action-btns">
+                        <button @click="toggleActivity(index)">{{ activity.completed ? 'Belum Selesai' : 'Selesai' }}</button>
+                        <button @click="deleteActivity(index)">Hapus</button>
+                    </div>
+                </li>
+            </ul>
+            <div class="filter-options">
+                <button class="filter-btn" :class="{ active: filter === 'all' }" @click="setFilter('all')">Semua Kegiatan</button>
+                <button class="filter-btn" :class="{ active: filter === 'unfinished' }" @click="setFilter('unfinished')">Belum Selesai</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.min.js"></script> <!-- Memuat Vue.js -->
+<script src="app.js"></script> <!-- Memuat file JavaScript Vue.js -->
+</body>
+</html>
